@@ -1,8 +1,9 @@
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const ListItem = ({ title }) => (
+const ListItem = ({ data }) => (
   <View>
-    <Text style={styles.title}> {title}</Text>
+    <Text style={styles.title}>{data.text}</Text>
   </View>
 );
 

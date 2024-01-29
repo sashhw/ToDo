@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import ListItem from "../components/ListItem";
 import TextInputBar from "../components/TextInputBar";
-import AddButton from "../components/AddButton";
 
 const ToDoScreen = () => {
-  const tasks = [
-    { id: "1", title: "do dishes" },
-    { id: "2", title: "get groceries" },
-  ];
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = (newTask) => {
+    setTasks((prev) => [...prev, { text: newTask }]);
+  };
 
   return (
     <View style={styles.container}>
       <FlatList
         data={tasks}
-        renderItem={({ item }) => <ListItem title={item.title} />}
-        keyExtractor={(task) => task.id}
+        renderItem={({ item, index }) => <ListItem data={item} index={index} />}
+        keyExtractor={(item, index) => index.toString()}
       />
+
       <View style={styles.inputContainer}>
-        <TextInputBar />
-        <AddButton />
+        <TextInputBar onAddTask={addTask} />
       </View>
     </View>
   );
@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
