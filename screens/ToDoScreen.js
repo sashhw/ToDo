@@ -5,17 +5,24 @@ import TextInputBar from "../components/TextInputBar";
 
 const ToDoScreen = () => {
   const [tasks, setTasks] = useState([]);
+  const [idCounter, setIdCounter] = useState(1);
 
   const addTask = (newTask) => {
-    setTasks((prev) => [...prev, { text: newTask }]);
+    setTasks((prev) => [...prev, { id: idCounter, text: newTask }]);
+    setIdCounter((prevId) => prevId + 1);
   };
 
+  const deleteTask = (taskId) => {
+    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+  };
   return (
     <View style={styles.container}>
       <FlatList
         data={tasks}
-        renderItem={({ item, index }) => <ListItem data={item} index={index} />}
-        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <ListItem data={item} onDelete={deleteTask} />
+        )}
+        keyExtractor={(item) => item.id.toString()}
       />
 
       <View style={styles.inputContainer}>
