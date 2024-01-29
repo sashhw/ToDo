@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import ListItem from "../components/ListItem";
 import TextInputBar from "../components/TextInputBar";
+import SearchBar from "../components/SearchBar";
 
 const ToDoScreen = () => {
   const [tasks, setTasks] = useState([]);
@@ -17,6 +18,7 @@ const ToDoScreen = () => {
   };
   return (
     <View style={styles.container}>
+      <SearchBar />
       <FlatList
         data={tasks}
         renderItem={({ item }) => (
