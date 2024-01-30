@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 40,
   },
   header: {
     fontSize: 24,
     fontWeight: "500",
-    marginVertical: 20,
+    marginVertical: 15,
   },
 });
