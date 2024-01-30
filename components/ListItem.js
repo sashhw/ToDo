@@ -1,17 +1,29 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 
 const ListItem = ({ data, onDelete }) => {
   const handleDelete = () => {
-    onDelete(data.id);
+    Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => onDelete(data.id),
+        style: "destructive",
+      },
+    ]);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{data.text}</Text>
-      <TouchableOpacity onPress={handleDelete}>
-        <Text style={styles.deleteButton}>Delete</Text>
-      </TouchableOpacity>
+      <View style={styles.deleteButtonContainer}>
+        <TouchableOpacity onPress={handleDelete}>
+          <Text style={styles.deleteButton}>X</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -30,9 +42,16 @@ const styles = StyleSheet.create({
     fontWeight: "200",
     fontSize: 20,
   },
+  deleteButtonContainer: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 5,
+  },
   deleteButton: {
     color: "red",
-    marginLeft: 10,
+    fontWeight: "bold",
+    paddingHorizontal: 8,
   },
 });
 

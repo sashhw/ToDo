@@ -1,12 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import ToDoScreen from "./screens/ToDoScreen";
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>To-Do List</Text>
       <ToDoScreen />
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -17,5 +16,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "500",
+    marginVertical: 20,
   },
 });

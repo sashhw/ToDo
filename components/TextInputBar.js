@@ -27,7 +27,7 @@ const TextInputBar = ({ onAddTask }) => {
         style={styles.input}
         onChangeText={handleTextChange}
         value={text}
-        placeholder="Type here..."
+        placeholder="Type task here..."
       />
       <TouchableOpacity
         style={[styles.addButton, { opacity: text.trim() === "" ? 0.5 : 1 }]}
