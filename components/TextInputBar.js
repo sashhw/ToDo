@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
   View,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   Text,
+  StyleSheet,
 } from "react-native";
 
 const TextInputBar = ({ onAddTask }) => {
@@ -15,8 +15,10 @@ const TextInputBar = ({ onAddTask }) => {
   };
 
   const handleAddTask = () => {
-    onAddTask(text);
-    setText("");
+    if (text.trim() !== "") {
+      onAddTask(text);
+      setText("");
+    }
   };
 
   return (
@@ -27,7 +29,11 @@ const TextInputBar = ({ onAddTask }) => {
         value={text}
         placeholder="Type here..."
       />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
+      <TouchableOpacity
+        style={[styles.addButton, { opacity: text.trim() === "" ? 0.5 : 1 }]}
+        onPress={handleAddTask}
+        disabled={text.trim() === ""}
+      >
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>
