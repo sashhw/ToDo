@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { View, FlatList, StyleSheet, TextInput, Text } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  TextInput,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+} from "react-native";
 import ListItem from "../components/ListItem";
 import TextInputBar from "../components/TextInputBar";
 
@@ -22,27 +31,33 @@ const ToDoScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.searchBarContainer}>
-        <TextInput
-          style={styles.searchBar}
-          value={searchText}
-          onChangeText={(text) => setSearchText(text)}
-          placeholder="Search"
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={100}
+        style={{ flex: 1 }}
+      >
+        <View style={styles.searchBarContainer}>
+          <TextInput
+            style={styles.searchBar}
+            value={searchText}
+            onChangeText={(text) => setSearchText(text)}
+            placeholder="Search"
+          />
+        </View>
+        <FlatList
+          data={filteredTasks}
+          renderItem={({ item }) => (
+            <ListItem data={item} onDelete={deleteTask} />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          style={styles.flatList}
         />
-      </View>
-      <FlatList
-        data={filteredTasks}
-        renderItem={({ item }) => (
-          <ListItem data={item} onDelete={deleteTask} />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        style={styles.flatList}
-      />
-      <View style={styles.inputContainer}>
-        <TextInputBar onAddTask={addTask} />
-      </View>
-    </View>
+        <View style={styles.inputContainer}>
+          <TextInputBar onAddTask={addTask} />
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
